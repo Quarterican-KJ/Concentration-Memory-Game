@@ -15,17 +15,17 @@
 
 function generateBoard() {
   shuffle(cards).forEach(card => {
-    let li = document.createElement('li')
-    li.classList.add('card')
-    li.setAttribute('data-card', card)
-    let i = document.createElement('i')
-    i.classList.add('fa', card)
-    i.setAttribute('data-card', card)
-    li.appendChild(i)
+    let li = document.createElement('li');
+    li.classList.add('card');
+    li.setAttribute('data-card', card);
+    let i = document.createElement('i');
+    i.classList.add('fa', card);
+    i.setAttribute('data-card', card);
+    li.appendChild(i);
     document.getElementById('deck').appendChild(li);
-  })
-}
-generateBoard()
+  });
+};
+generateBoard();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -37,10 +37,10 @@ function shuffle(array) {
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
-    }
+    };
 
     return array;
-}
+};
 
 
 /*
@@ -62,8 +62,39 @@ let moves = 3;
 let movesSpan = document.getElementById('moves');
 let pause = false;
 let restart = document.getElementById('restart');
+let resetModal = document.getElementById('restartGame');
 let initialClick = false;
 let stars = document.getElementById('stars');
+let currentPerformance = 'good';
+
+function checkPerformance() {
+ // good(3) = 9 moves or less
+ if(count <= 9) {
+   // nothing
+ };
+
+ // average(2) = 10 - 19
+ if(count > 9 && count < 20) {
+   if(currentPerformance === 'average') {
+     return;
+   };
+   else {
+     currentPerformance = 'average';
+     stars.removeChild(stars.children[stars.children.length - 1]);
+   };
+ };
+
+ // poor(1) 20+
+ if(count >= 20) {
+   if(currentPerformance === 'poor') {
+     return;
+   }
+   else {
+     currentPerformance = 'poor';
+     stars.removeChild(stars.children[stars.children.length - 1]);
+   };
+ };
+};
 
 function activateCards() {
   let allCards = document.querySelectorAll('.card');
@@ -72,25 +103,23 @@ function activateCards() {
       if (initialClick === false) {
         initialClick = true;
         startTimer();
-      }
+      };
       if (card === lastFlipped || pause || openCards.includes(card)) {
-        return
+        return;
       }
       card.classList.add('open', 'show');
       if (lastFlipped && lastFlipped != card) {
         console.log(card, lastFlipped);
-        let thisCard = card.getAttribute('data-card')
-        let lastCard = lastFlipped.getAttribute('data-card')
+        let thisCard = card.getAttribute('data-card');
+        let lastCard = lastFlipped.getAttribute('data-card');
         console.log(lastCard, thisCard);
         count++;
+        checkPerformance();
         movesSpan.innerText = count;
-        if (count % 5 === 0) {
-          stars.removeChild(stars.children[stars.children.length - 1])
-        }
         if (lastCard === thisCard) {
           console.log('match');
-          card.classList.add('match')
-          lastFlipped.classList.add('match')
+          card.classList.add('match');
+          lastFlipped.classList.add('match');
           openCards.push(card);
           openCards.push(lastFlipped);
           lastFlipped = null;
@@ -102,17 +131,17 @@ function activateCards() {
             lastFlipped.classList.remove('open', 'show');
             lastFlipped = null;
             pause = false;
-          }, 1000)
-        }
+          }, 1000);
+        };
         if (openCards.length == 16) {
-          $('#myModal').modal('show')
+          gameOver();
         }
       } else {
-        lastFlipped = card
-      }
+        lastFlipped = card;
+      };
     });
   });
-}
+};
 
 activateCards();
 
@@ -135,15 +164,18 @@ timer = setInterval(function(){
 }, 1000);
 }
 
+function stopTimer() {
+  clearInterval(timer);
+};
+
 function renderTime() {
   let minCount = min < 10 ? `0${min}` : String(min);
   let secCount = sec < 10 ? `0${sec}` : String(sec);
   gameCurrentTime = `${minCount}:${secCount}`;
-  gameTimer.innerText = gameCurrentTime
-}
+  gameTimer.innerText = gameCurrentTime;
+};
 
-//restart button
-restart.addEventListener('click', function(){
+function resetGame() {
   document.getElementById('deck').innerHTML = '';
    openCards = [];
    lastFlipped = null;
@@ -156,10 +188,27 @@ restart.addEventListener('click', function(){
    clearInterval(timer);
    renderTime();
    movesSpan.innerText = count;
-   stars.innerHTML = ''
+   stars.innerHTML = '';
    for (let i = 0; i < moves; i++){
-     stars.innerHTML += '<li><i class="fa fa-star"></i></li>'
-   }
+     stars.innerHTML += '<li><i class="fa fa-star"></i></li>';
+   };
    generateBoard();
    activateCards();
-})
+};
+
+//restart button
+restart.addEventListener('click', function(){
+  resetGame();
+});
+
+resetModal.addEventListener('click', function() {
+  resetGame();
+});
+
+function gameOver() {
+  stopTimer();
+  $('#myModal').modal('show');
+  document.getElementById('timerEnd').innerText = gameCurrentTime;
+  document.getElementById('starsEnd').innerText = stars.children.length + ' ' + currentPerformance;
+  document.getElementById('movesEnd').innerText = count;
+};
