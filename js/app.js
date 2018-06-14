@@ -77,7 +77,7 @@ function checkPerformance() {
  if(count > 9 && count < 20) {
    if(currentPerformance === 'average') {
      return;
-   };
+   }
    else {
      currentPerformance = 'average';
      stars.removeChild(stars.children[stars.children.length - 1]);
