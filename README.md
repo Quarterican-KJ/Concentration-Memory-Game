@@ -17,4 +17,4 @@ This is my take on the project memory game "Concentration" for the Udacity Front
 
 ## Dependencies
 
-This game uses javaScript and jQuery as well as some Media Queries to emulate the game "Concentration" on a variety of devices.
+This game uses javaScript, jQuery, Bootstrap, Font Awesome as well as some Media Queries to emulate the game "Concentration" on a variety of devices with a nice 'Coda' styled font.
