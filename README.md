@@ -1,16 +1,20 @@
 # Memory Game Project
 
-## Table of Contents
+## How to install.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+Use GitHub's "Clone or Download" option to get copy of this game Concentration — from there, you can clone the files to your own GitHub repo, download the files to your computer, or use a command shell tool with the provided "Clone or Download" URL. Simply open up the index.html file and enjoy!
 
-## Instructions
+## How to Play.
 
-Pick two cards, if they dont match youll need to try again looking for a match. Once all the cards are matched the game is over.
+Pick a card to start playing.
+Match two cards to progress.
+Rinse Repeat
+PROFIT!
 
-## Contributing
+## About the Game Author
 
-This game uses javaScript and jQuery to emulate the game "Concentration".
+This is my take on the project memory game "Concentration" for the Udacity Front End Web Devloper course.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Dependencies
+
+This game uses javaScript and jQuery as well as some Media Queries to emulate the game "Concentration" on a variety of devices.
