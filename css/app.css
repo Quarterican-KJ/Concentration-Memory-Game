@@ -126,3 +126,32 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+@media screen and (max-width: 700px) {
+
+  h1 {
+    text-align: center;
+    font-size: 3em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  .score-panel {
+    font-size: 1rem;
+  }
+
+  .deck {
+    margin: auto;
+    width: 315px;
+    min-height: 325px;
+  }
+
+  .deck .card {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    width: 60px;
+  }
+}
