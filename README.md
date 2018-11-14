@@ -3,6 +3,7 @@
 ## About the Game
 
 This is my take on the project memory game "Concentration" for the Udacity Front End Web Developer course.
+If you would like to see a live version of this project please visit https://quarterican-kj.github.io/Concentration-Memory-Game/
 
 ## How to install.
 
